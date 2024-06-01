@@ -1,0 +1,13 @@
+#ignore dataset folder
+dataset/
+
+#ignore virtual environment folder
+venv/
+
+#ignore other common files and folders
+*.pyc
+__pycache__/
+*.log
+*.sqlite3
+.DS_Store
+.env
