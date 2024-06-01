@@ -5,7 +5,7 @@ datasets/
 pklDir/
 
 #ignoring the images folder as it will only store the demo images
-images/
+#images/
 
 #ignore virtual environment folder
 venv/
