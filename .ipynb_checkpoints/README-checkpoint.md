@@ -18,11 +18,3 @@ streamlit run app.py
 
 #### Demo of the working project
 
-- **Running the application**
-![Terminal Command](./images/runningProgram.png "Starting the application")
-
-- **Web Result**
-![Browser View](./images/webInterface.png "Browser View")
-
-- **Search View**
-![Search Results](./images/SearchResult.png "Search Result")

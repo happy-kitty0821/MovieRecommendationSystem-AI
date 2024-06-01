@@ -11,22 +11,27 @@ def fetch_poster(movie_id):
     return full_path
 
 def recommend(movie):
-    index = movies[movies['title'] == movie].index[0]
+    try:
+        index = movies[movies['title'] == movie].index[0]
+    except IndexError:
+        st.error(f"Could not find movie '{movie}' in the dataset.")
+        return [], []
+
     distances = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda x: x[1])
     recommended_movie_names = []
     recommended_movie_posters = []
     for i in distances[1:6]:
-        # fetch the movie poster
+        #fetch the movie poster
         movie_id = movies.iloc[i[0]].movie_id
         recommended_movie_posters.append(fetch_poster(movie_id))
         recommended_movie_names.append(movies.iloc[i[0]].title)
 
-    return recommended_movie_names,recommended_movie_posters
+    return recommended_movie_names, recommended_movie_posters
 
 
 st.header('Movie Recommender System')
-movies = pickle.load(open('model/movie_list.pkl','rb'))
-similarity = pickle.load(open('model/similarity.pkl','rb'))
+movies = pickle.load(open('./pklDir/movieList.pkl','rb'))
+similarity = pickle.load(open('./pklDir/similarity.pkl','rb'))
 
 movie_list = movies['title'].values
 selected_movie = st.selectbox(
@@ -36,7 +41,7 @@ selected_movie = st.selectbox(
 
 if st.button('Show Recommendation'):
     recommended_movie_names,recommended_movie_posters = recommend(selected_movie)
-    col1, col2, col3, col4, col5 = st.beta_columns(5)
+    col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
         st.text(recommended_movie_names[0])
         st.image(recommended_movie_posters[0])
